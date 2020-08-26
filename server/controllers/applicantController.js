@@ -1,10 +1,12 @@
-const Applicant = require('../models/Applicant');
+const Applicant = require('./../models/Applicant');
 
 const addApplicant = async (req, res, next) => {
   try {
+    console.log('app', Applicant);
+    // console.log(req);
     const newApplicant = await Applicant.create({
       name: req.body.name,
-      notes: req.body.name,
+      notes: req.body.notes,
       technologies: req.body.tech,
     });
 
@@ -17,7 +19,7 @@ const addApplicant = async (req, res, next) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({
-      status: 'success',
+      status: 'fail',
       message: 'An error occurred',
     });
   }
@@ -52,14 +54,14 @@ const getApplicantById = async (req, res, next) => {
         status: 'fail',
         message: 'applicant does not exist',
       });
+    } else {
+      res.status(200).json({
+        status: 'success',
+        data: {
+          applicant,
+        },
+      });
     }
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        applicant,
-      },
-    });
   } catch (err) {
     console.log(err);
     res.status(500).json({
