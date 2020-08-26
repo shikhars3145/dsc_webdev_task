@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const applicantSchema = new Schema(
+const postSchema = new Schema(
   {
     name: {
       type: String,
-      required: [true, 'An Applicant must have a name'],
+      required: [true, 'A post must have a name'],
     },
-    notes: {
+    description: {
       type: String,
     },
     technologies: [String],
@@ -15,6 +15,6 @@ const applicantSchema = new Schema(
   { timestamps: true }
 );
 
-const Applicant = mongoose.model('applicants', applicantSchema);
+const Post = mongoose.model('posts', postSchema);
 
-module.exports = Applicant;
+module.exports = Post;
