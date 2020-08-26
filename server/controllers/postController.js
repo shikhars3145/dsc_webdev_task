@@ -2,8 +2,6 @@ const Post = require('./../models/Post');
 
 const addPost = async (req, res, next) => {
   try {
-    console.log('app', Post);
-    // console.log(req);
     const newPost = await Post.create({
       name: req.body.name,
       description: req.body.description,

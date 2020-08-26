@@ -2,8 +2,6 @@ const Applicant = require('./../models/Applicant');
 
 const addApplicant = async (req, res, next) => {
   try {
-    console.log('app', Applicant);
-    // console.log(req);
     const newApplicant = await Applicant.create({
       name: req.body.name,
       notes: req.body.notes,
