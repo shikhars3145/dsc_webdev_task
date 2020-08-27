@@ -2,11 +2,7 @@ const Post = require('./../models/Post');
 
 const addPost = async (req, res, next) => {
   try {
-    const newPost = await Post.create({
-      name: req.body.name,
-      description: req.body.description,
-      technologies: req.body.tech,
-    });
+    const newPost = await Post.create(req.body);
 
     res.status(200).json({
       status: 'success',
@@ -45,7 +41,10 @@ const getAllPosts = async (req, res, next) => {
 const getPostById = async (req, res, next) => {
   try {
     const postId = req.params.Id;
-    const post = await Post.findById(postId);
+    const post = await Post.findById(postId).populate({
+      path: 'applications',
+      select: '-post',
+    });
 
     if (!post) {
       res.status(404).json({
@@ -83,7 +82,6 @@ const updatePost = async (req, res, next) => {
         message: 'post does not exist',
       });
     }
-
     res.status(200).json({
       status: 'success',
       data: {
