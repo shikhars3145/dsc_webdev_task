@@ -1,0 +1,103 @@
+[
+  {
+    "id": 1,
+    "team": "core",
+    "role": "management lead",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": [],
+    "open-positions": 1,
+    "noOfApplicants": 6,
+    "//applicant ids": "this is a comment for below line",
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 2,
+    "team": "core",
+    "role": "Event Manager",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": [],
+    "open-positions": 1,
+    "noOfApplicants": 9,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 3,
+    "team": "Technical",
+    "role": "Web Developer",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": ["HTML", "CSS", "Javascript"],
+    "open-positions": 3,
+    "noOfApplicants": 44,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 4,
+    "team": "Technical",
+    "role": "Android",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": ["flutter", "react-native", "kotlin", "java"],
+    "open-positions": 0,
+    "noOfApplicants": 0,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 5,
+    "team": "Technical",
+    "role": "FullStack Developer",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": ["react", "nodejs", "mongodb", "express"],
+    "open-positions": 2,
+    "noOfApplicants": 16,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 6,
+    "team": "Technical",
+    "role": "AR/VR Developer",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": ["vuforia", "unity"],
+    "open-positions": 3,
+    "noOfApplicants": 10,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 7,
+    "team": "Technical",
+    "role": "BlockChain Dev",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": ["ethereum", "solidity"],
+    "open-positions": 4,
+    "noOfApplicants": 11,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 8,
+    "team": "Technical",
+    "role": "Data Scientist",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": ["python", "pytorch", "tensorflow", "scikit-learn"],
+    "open-positions": 5,
+    "noOfApplicants": 25,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 9,
+    "team": "Public Relations",
+    "role": "PR Team Member",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": [],
+    "open-positions": 11,
+    "noOfApplicants": 20,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  },
+  {
+    "id": 10,
+    "team": "Social Media",
+    "role": "Content Writer",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc pretium, nisl vel ornare mattis, dolor leo euismod mi, feugiat pulvinar odio justo sed nunc. Cras luctus neque a orci sodales, non placerat nisl posuere. Duis suscipit volutpat egestas. Nullam mollis porta hendrerit. Phasellus ut placerat libero. Class aptent taciti sociosqu ad litora torquent per conubia nostra",
+    "technologies": [],
+    "open-positions": 3,
+    "noOfApplicants": 8,
+    "applicants": [124, 856, 999, 444, 865, 753, 883]
+  }
+]

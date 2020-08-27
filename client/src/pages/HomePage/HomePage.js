@@ -79,57 +79,50 @@ const useStyles = makeStyles((theme) => ({
 export default function HomePage() {
   const classes = useStyles();
   return (
-    <div>
-      <Header />
-      <Container fixed>
-        <div className={classes.root}>
-          <Grid container spacing={3}>
-            <Grid
-              container
-              direction="column"
-              justify="space-around"
-              item
-              xs={12}
-              md={6}
-            >
-              <Typography className={classes.mainHeading} variant="h3">
-                <div className={classes.word}>
-                  <span className={classes.LBG + ' ' + classes.first}>
-                    Learn
-                  </span>
-                  <span className={classes.LBG + ' ' + classes.second}>
-                    Build
-                  </span>
-                  <span className={classes.LBG + ' ' + classes.third}>
-                    Grow
-                  </span>
-                </div>
-                <span
-                  style={{
-                    width: '8rem',
-                    display: 'inline-block',
-                  }}
-                ></span>{' '}
-                With DSC JIIT 128
-              </Typography>
-              <Typography className={classes.mainPara} variant="p">
-                This is the online application portal for DSC JIIT128 for the
-                roles in core team. Here is your chance for becoming a part of
-                community with connections all over the world. Check Out the
-                open positions below.
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <img src={dev} className={classes.devImg} />
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Button variant="outlined" className={classes.homebtn}>
-                Check Out our Roles{' '}
-              </Button>
-            </Grid>
+    <Container fixed>
+      <div className={classes.root}>
+        <Grid container spacing={3}>
+          <Grid
+            container
+            direction="column"
+            justify="space-around"
+            item
+            xs={12}
+            md={6}
+          >
+            <Typography className={classes.mainHeading} variant="h3">
+              <div className={classes.word}>
+                <span className={classes.LBG + ' ' + classes.first}>Learn</span>
+                <span className={classes.LBG + ' ' + classes.second}>
+                  Build
+                </span>
+                <span className={classes.LBG + ' ' + classes.third}>Grow</span>
+              </div>
+              <span
+                style={{
+                  width: '8rem',
+                  display: 'inline-block',
+                }}
+              ></span>{' '}
+              With DSC JIIT 128
+            </Typography>
+            <Typography className={classes.mainPara} variant="p">
+              This is the online application portal for DSC JIIT128 for the
+              roles in core team. Here is your chance for becoming a part of
+              community with connections all over the world. Check Out the open
+              positions below.
+            </Typography>
           </Grid>
-        </div>
-      </Container>
-    </div>
+          <Grid item xs={12} md={6}>
+            <img src={dev} className={classes.devImg} />
+          </Grid>
+          <Grid item xs={12} md={6}>
+            <Button variant="outlined" className={classes.homebtn}>
+              Check Out our Roles{' '}
+            </Button>
+          </Grid>
+        </Grid>
+      </div>
+    </Container>
   );
 }
