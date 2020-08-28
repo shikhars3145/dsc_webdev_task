@@ -6,6 +6,7 @@ const userRouter = require('./routes/userRouter');
 const applicationRouter = require('./routes/applicationRouter');
 const postRouter = require('./routes/postRouter');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
 // const bodyParser = require('body-parser');
 
 dotenv.config();
@@ -21,6 +22,7 @@ mongoose
   .catch((err) => console.log('error connecting db', err));
 
 const app = express();
+app.use(cors());
 app.use(morgan('dev'));
 // app.use(bodyParser());
 app.use(express.json());

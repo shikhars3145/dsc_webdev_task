@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -9,6 +9,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import CodeIcon from '@material-ui/icons/Code';
+import HomeIcon from '@material-ui/icons/Home';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import clsx from 'clsx';
 import {
@@ -23,6 +24,8 @@ import {
 
 import logo from '../../logo.svg';
 import LoginDialogue from '../loginDialogue/LoginDialogue';
+import { UserContext } from '../../contexts';
+import { withRouter } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,15 +66,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function MenuAppBar() {
+function MenuAppBar({ history }) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
   const [openLogin, setopenLogin] = React.useState(false);
-  //   const [auth, setAuth] = React.useState(true);
 
-  //   const handleChange = (event) => {
-  //     setAuth(event.target.checked);
-  //   };
+  const { user, setUser } = useContext(UserContext);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -84,6 +84,8 @@ export default function MenuAppBar() {
   const handleLoginOpen = () => {
     setopenLogin(true);
   };
+
+  const handleLogout = () => {};
 
   return (
     <div className={classes.root}>
@@ -127,42 +129,50 @@ export default function MenuAppBar() {
               </div>
               <Divider />
 
-              {/* LOGGED IN */}
               <List className={classes.list}>
+                <ListItem button>
+                  <ListItemIcon>
+                    <HomeIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItem>
                 <ListItem button>
                   <ListItemIcon>
                     <CodeIcon />
                   </ListItemIcon>
                   <ListItemText primary="Roles" />
                 </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <AccountCircle />
-                  </ListItemIcon>
-                  <ListItemText primary="Profile" />
-                </ListItem>
-                <ListItem button>
-                  <ListItemIcon>
-                    <ExitToAppIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Logout" />
-                </ListItem>
-              </List>
 
-              {/* LOGGED OUT */}
-              <List className={classes.list}>
-                <ListItem button>
-                  <ListItemIcon>
-                    <CodeIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Roles" />
-                </ListItem>
-                <ListItem button onClick={handleLoginOpen}>
-                  <ListItemIcon>
-                    <VpnKeyIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Login" />
-                </ListItem>
+                {/* LOGGED IN / OUT*/}
+
+                {user ? (
+                  <>
+                    <ListItem
+                      button
+                      onClick={() => {
+                        history.push('/profile');
+                      }}
+                    >
+                      <ListItemIcon>
+                        <AccountCircle />
+                      </ListItemIcon>
+                      <ListItemText primary="Profile" />
+                    </ListItem>
+                    <ListItem button onClick={handleLogout}>
+                      <ListItemIcon>
+                        <ExitToAppIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Logout" />
+                    </ListItem>
+                  </>
+                ) : (
+                  <ListItem button onClick={handleLoginOpen}>
+                    <ListItemIcon>
+                      <VpnKeyIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Login" />
+                  </ListItem>
+                )}
               </List>
             </Drawer>
           </Toolbar>
@@ -172,3 +182,5 @@ export default function MenuAppBar() {
     </div>
   );
 }
+
+export default withRouter(MenuAppBar);

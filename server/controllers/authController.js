@@ -53,6 +53,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
 
     if (!email || !password) {
+      // console.log('not sent');
       return res.status(500).json({
         status: 'fail',
         message: 'email or password not sent',
@@ -62,6 +63,7 @@ const login = async (req, res, next) => {
     const user = await User.findOne({ email }).select('+password');
 
     if (!user || !(await user.checkPassword(password, user.password))) {
+      // console.log('not matched');
       return res.status(500).json({
         status: 'fail',
         message: 'email or password incorrect',

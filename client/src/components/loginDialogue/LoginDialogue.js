@@ -5,11 +5,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import InputAdornment from '@material-ui/core/InputAdornment';
 
 import FormControl from '@material-ui/core/FormControl';
+import Snackbar from '@material-ui/core/Snackbar';
+import MuiAlert from '@material-ui/lab/Alert';
 
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import React from 'react';
+import React, { useContext } from 'react';
 import {
   Button,
   TextField,
@@ -19,15 +21,24 @@ import {
   DialogTitle,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core';
-
+import axios from 'axios';
+import { UserContext } from '../../contexts';
 const useStyles = makeStyles((theme) => ({
   withoutLabel: {
     marginTop: theme.spacing(3),
   },
 }));
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function LoginDialogue({ modalOpen, setmodalOpen }) {
   const classes = useStyles();
+
+  const { user, setUser } = useContext(UserContext);
+
+  const [openLoginSnackBar, setopenLoginSnackBar] = React.useState(false);
 
   const [values, setValues] = React.useState({
     email: '',
@@ -39,7 +50,32 @@ export default function LoginDialogue({ modalOpen, setmodalOpen }) {
     setmodalOpen(false);
   };
 
-  const handleLogin = () => {
+  const handleLoginSnackBarClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setopenLoginSnackBar(false);
+  };
+
+  const handleLogin = async () => {
+    try {
+      const res = await axios({
+        method: 'POST',
+        url: 'http://localhost:3000/api/users/login',
+        data: {
+          email: values.email,
+          password: values.password,
+        },
+      });
+      console.log(res);
+      setopenLoginSnackBar(true);
+      setUser(res.data.data.user);
+      localStorage.setItem('user', JSON.stringify(res.data.data.user));
+    } catch (err) {
+      console.log(err);
+    }
+
     setmodalOpen(false);
   };
 
@@ -54,6 +90,7 @@ export default function LoginDialogue({ modalOpen, setmodalOpen }) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+
   return (
     <div>
       <Dialog
@@ -104,6 +141,15 @@ export default function LoginDialogue({ modalOpen, setmodalOpen }) {
           </Button>
         </DialogActions>
       </Dialog>
+      <Snackbar
+        open={openLoginSnackBar}
+        autoHideDuration={6000}
+        onClose={handleLoginSnackBarClose}
+      >
+        <Alert onClose={handleLoginSnackBarClose} severity="success">
+          Login Successful
+        </Alert>
+      </Snackbar>
     </div>
   );
 }
