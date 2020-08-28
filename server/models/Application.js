@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Post = require('./Post');
 const Schema = mongoose.Schema;
 
 const applicationSchema = new Schema(
@@ -10,7 +11,7 @@ const applicationSchema = new Schema(
     },
     applicant: {
       type: mongoose.Schema.ObjectId,
-      ref: 'applicants',
+      ref: 'users',
       required: [true, 'An Application must have an applicant'],
     },
     score: {
@@ -22,7 +23,6 @@ const applicationSchema = new Schema(
     },
     status: {
       type: String,
-      required: [true, 'An application must have a status'],
       default: 'applied',
       enum: {
         values: ['applied', 'selected', 'rejected'],
@@ -45,6 +45,44 @@ applicationSchema.pre(/^find/, function (next) {
   next();
 });
 
-const Application = mongoose.model('applicants', applicationSchema);
+applicationSchema.statics.calcCount = async function (postId) {
+  const countAgg = await this.aggregate([
+    {
+      $match: { post: postId },
+    },
+    {
+      $group: {
+        _id: '$post',
+        count: { $sum: 1 },
+      },
+    },
+  ]);
+  // console.log(countAgg);
+
+  if (countAgg.length > 0) {
+    await Post.findByIdAndUpdate(PostId, {
+      noOfApplicants: countAgg[0].count,
+    });
+  } else {
+    await Post.findByIdAndUpdate(PostId, {
+      noOfApplicants: 0,
+    });
+  }
+};
+
+applicationSchema.post('save', function () {
+  this.constructor.calcCount(this.post);
+});
+
+applicationSchema.pre(/^findOneAnd/, async function (next) {
+  this.r = await this.findOne();
+  next();
+});
+
+applicationSchema.post(/^findOneAnd/, async function () {
+  await this.r.constructor.calcCount(this.r.post);
+});
+
+const Application = mongoose.model('applications', applicationSchema);
 
 module.exports = Application;
