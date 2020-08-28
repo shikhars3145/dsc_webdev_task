@@ -12,6 +12,10 @@ const userSchema = new Schema(
     email: {
       type: String,
       required: [true, 'A user must have an email'],
+      unique: [
+        true,
+        'email already registered, try logging in or another email id',
+      ],
     },
     password: {
       type: String,
@@ -61,7 +65,7 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-userSchema.methods.correctPassword = async function (
+userSchema.methods.checkPassword = async function (
   enteredPassword,
   userPassword
 ) {

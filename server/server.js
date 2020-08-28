@@ -5,6 +5,8 @@ const dotenv = require('dotenv');
 const userRouter = require('./routes/userRouter');
 const applicationRouter = require('./routes/applicationRouter');
 const postRouter = require('./routes/postRouter');
+const cookieParser = require('cookie-parser');
+// const bodyParser = require('body-parser');
 
 dotenv.config();
 
@@ -20,7 +22,9 @@ mongoose
 
 const app = express();
 app.use(morgan('dev'));
+// app.use(bodyParser());
 app.use(express.json());
+app.use(cookieParser());
 app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
 app.use('/api/applications', applicationRouter);

@@ -1,22 +1,10 @@
 const User = require('../models/User');
 
 const addUser = async (req, res, next) => {
-  try {
-    const newuser = await User.create(req.body);
-
-    res.status(200).json({
-      status: 'success',
-      data: {
-        user: newuser,
-      },
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: 'fail',
-      message: 'An error occurred',
-    });
-  }
+  res.status(500).json({
+    status: 'fail',
+    message: 'route not defined use /signup for creating user',
+  });
 };
 
 const getAllUsers = async (req, res, next) => {
@@ -72,10 +60,28 @@ const getUserById = async (req, res, next) => {
   }
 };
 
+const filterObj = (obj, ...allowedFields) => {
+  const newObj = {};
+  Object.keys(obj).forEach((el) => {
+    if (allowedFields.includes(el)) newObj[el] = obj[el];
+  });
+  return newObj;
+};
+
 const updateUser = async (req, res, next) => {
   try {
     const userId = req.params.Id;
-    const user = await User.findByIdAndUpdate(userId, req.body, {
+    const filtered = filterObj(
+      req.body,
+      'name',
+      'email',
+      'technologies',
+      'batch',
+      'year',
+      'github',
+      'linkedin'
+    );
+    const user = await User.findByIdAndUpdate(userId, filtered, {
       new: true,
       runValidators: true,
     });
