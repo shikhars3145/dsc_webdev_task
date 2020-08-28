@@ -26,6 +26,7 @@ import logo from '../../logo.svg';
 import LoginDialogue from '../loginDialogue/LoginDialogue';
 import { UserContext } from '../../contexts';
 import { withRouter } from 'react-router-dom';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -85,7 +86,15 @@ function MenuAppBar({ history }) {
     setopenLogin(true);
   };
 
-  const handleLogout = () => {};
+  const handleLogout = () => {
+    try {
+      const res = axios.get('http://localhost:3000/api/users/logout');
+      localStorage.removeItem('user');
+      setUser(null);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className={classes.root}>
