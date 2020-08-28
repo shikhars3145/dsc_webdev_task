@@ -22,6 +22,7 @@ import {
 } from '@material-ui/core';
 
 import logo from '../../logo.svg';
+import LoginDialogue from '../loginDialogue/LoginDialogue';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -65,6 +66,7 @@ const useStyles = makeStyles((theme) => ({
 export default function MenuAppBar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [openLogin, setopenLogin] = React.useState(false);
   //   const [auth, setAuth] = React.useState(true);
 
   //   const handleChange = (event) => {
@@ -79,6 +81,10 @@ export default function MenuAppBar() {
     setOpen(false);
   };
 
+  const handleLoginOpen = () => {
+    setopenLogin(true);
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static" color="transparent">
@@ -91,16 +97,6 @@ export default function MenuAppBar() {
             <Typography variant="h6" className={classes.titleCollege}>
               JIIT 128
             </Typography>
-
-            {/* <IconButton
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleMenu}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton> */}
 
             <IconButton
               edge="start"
@@ -161,7 +157,7 @@ export default function MenuAppBar() {
                   </ListItemIcon>
                   <ListItemText primary="Roles" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={handleLoginOpen}>
                   <ListItemIcon>
                     <VpnKeyIcon />
                   </ListItemIcon>
@@ -172,6 +168,7 @@ export default function MenuAppBar() {
           </Toolbar>
         </Container>
       </AppBar>
+      <LoginDialogue modalOpen={openLogin} setmodalOpen={setopenLogin} />
     </div>
   );
 }
