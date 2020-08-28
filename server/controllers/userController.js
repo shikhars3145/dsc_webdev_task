@@ -1,17 +1,13 @@
-const Applicant = require('./../models/Applicant');
+const User = require('./../models/User');
 
-const addApplicant = async (req, res, next) => {
+const addUser = async (req, res, next) => {
   try {
-    const newApplicant = await Applicant.create({
-      name: req.body.name,
-      notes: req.body.notes,
-      technologies: req.body.tech,
-    });
+    const newuser = await User.create(req.body);
 
     res.status(200).json({
       status: 'success',
       data: {
-        applicant: newApplicant,
+        user: newuser,
       },
     });
   } catch (err) {
@@ -23,14 +19,14 @@ const addApplicant = async (req, res, next) => {
   }
 };
 
-const getAllApplicants = async (req, res, next) => {
+const getAllUsers = async (req, res, next) => {
   try {
-    const applicants = await Applicant.find();
+    const users = await User.find();
     res.status(200).json({
       status: 'success',
-      results: applicants.length,
+      results: users.length,
       data: {
-        applicants,
+        users,
       },
     });
   } catch (err) {
@@ -42,21 +38,21 @@ const getAllApplicants = async (req, res, next) => {
   }
 };
 
-const getApplicantById = async (req, res, next) => {
+const getUserById = async (req, res, next) => {
   try {
-    const applicantId = req.params.Id;
-    const applicant = await Applicant.findById(applicantId);
+    const userId = req.params.Id;
+    const user = await User.findById(userId);
 
-    if (!applicant) {
+    if (!user) {
       res.status(404).json({
         status: 'fail',
-        message: 'applicant does not exist',
+        message: 'user does not exist',
       });
     } else {
       res.status(200).json({
         status: 'success',
         data: {
-          applicant,
+          user,
         },
       });
     }
@@ -69,25 +65,25 @@ const getApplicantById = async (req, res, next) => {
   }
 };
 
-const updateApplicant = async (req, res, next) => {
+const updateUser = async (req, res, next) => {
   try {
-    const applicantId = req.params.Id;
-    const applicant = await Applicant.findByIdAndUpdate(applicantId, req.body, {
+    const userId = req.params.Id;
+    const user = await User.findByIdAndUpdate(userId, req.body, {
       new: true,
       runValidators: true,
     });
 
-    if (!applicant) {
+    if (!user) {
       res.status(404).json({
         status: 'fail',
-        message: 'applicant does not exist',
+        message: 'user does not exist',
       });
     }
 
     res.status(200).json({
       status: 'success',
       data: {
-        applicant,
+        user,
       },
     });
   } catch (err) {
@@ -100,10 +96,10 @@ const updateApplicant = async (req, res, next) => {
   }
 };
 
-const deleteApplicant = async (req, res, next) => {
+const deleteUser = async (req, res, next) => {
   try {
-    const applicantId = req.params.Id;
-    await Applicant.findByIdAndRemove(applicantId);
+    const userId = req.params.Id;
+    await User.findByIdAndRemove(userId);
 
     res.status(204).json({
       status: 'success',
@@ -118,9 +114,9 @@ const deleteApplicant = async (req, res, next) => {
 };
 
 module.exports = {
-  addApplicant,
-  getAllApplicants,
-  getApplicantById,
-  updateApplicant,
-  deleteApplicant,
+  addUser,
+  getAllUsers,
+  getUserById,
+  updateUser,
+  deleteUser,
 };
