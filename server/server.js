@@ -22,7 +22,13 @@ mongoose
   .catch((err) => console.log('error connecting db', err));
 
 const app = express();
-app.use(cors());
+
+const corsOptions = {
+  origin: 'http://localhost:3001',
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(morgan('dev'));
 // app.use(bodyParser());
 app.use(express.json());

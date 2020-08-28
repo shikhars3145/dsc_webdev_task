@@ -11,6 +11,7 @@ const createSendToken = (user, req, res) => {
 
   //   console.log('res', res);
   res.cookie('jwt', token, {
+    expires: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000),
     httpOnly: true,
   });
 
@@ -93,6 +94,7 @@ const protect = async (req, res, next) => {
     }
 
     if (!token) {
+      console.log('no token');
       return res.status(500).json({
         status: 'fail',
         message: 'not logged in',
@@ -103,7 +105,7 @@ const protect = async (req, res, next) => {
 
     const currentUser = await User.findById(decoded.id);
     if (!currentUser) {
-      return res.status(500).json({
+      return res.status(404).json({
         status: 'fail',
         message: 'account has been deleted',
       });

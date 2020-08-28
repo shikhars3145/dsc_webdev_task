@@ -86,9 +86,11 @@ function MenuAppBar({ history }) {
     setopenLogin(true);
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
     try {
-      const res = axios.get('http://localhost:3000/api/users/logout');
+      const res = await axios.get('http://localhost:3000/api/users/logout', {
+        withCredentials: true,
+      });
       localStorage.removeItem('user');
       setUser(null);
     } catch (err) {

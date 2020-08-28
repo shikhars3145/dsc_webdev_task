@@ -60,14 +60,16 @@ export default function LoginDialogue({ modalOpen, setmodalOpen }) {
 
   const handleLogin = async () => {
     try {
-      const res = await axios({
-        method: 'POST',
-        url: 'http://localhost:3000/api/users/login',
-        data: {
+      const res = await axios.post(
+        'http://localhost:3000/api/users/login',
+        {
           email: values.email,
           password: values.password,
         },
-      });
+        {
+          withCredentials: true,
+        }
+      );
       console.log(res);
       setopenLoginSnackBar(true);
       setUser(res.data.data.user);

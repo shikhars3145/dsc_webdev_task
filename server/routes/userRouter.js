@@ -7,7 +7,7 @@ router.route('/').get(userController.getAllUsers).post(userController.addUser);
 
 router.route('/signup').post(authController.signup);
 router.route('/login').post(authController.login);
-router.route('/logout').post(authController.logout);
+router.route('/logout').get(authController.logout);
 router.use(authController.protect);
 
 router.patch('/changePassword', authController.changePassword);
