@@ -20,7 +20,16 @@ const addApplication = async (req, res, next) => {
 
 const getAllApplications = async (req, res, next) => {
   try {
-    const applications = await Application.find();
+    const applications = await Application.find()
+      .populate({
+        path: 'post',
+        select: 'team position description technologies',
+      })
+      .populate({
+        path: 'applicant',
+        select: 'name email year technologies',
+      });
+
     res.status(200).json({
       status: 'success',
       results: applications.length,
@@ -40,7 +49,15 @@ const getAllApplications = async (req, res, next) => {
 const getApplicationById = async (req, res, next) => {
   try {
     const applicationId = req.params.Id;
-    const application = await Application.findById(applicationId);
+    const application = await Application.findById(applicationId)
+      .populate({
+        path: 'post',
+        select: 'team position description technologies',
+      })
+      .populate({
+        path: 'applicant',
+        select: 'name email year technologies',
+      });
 
     if (!application) {
       res.status(404).json({

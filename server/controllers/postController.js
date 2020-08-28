@@ -43,7 +43,6 @@ const getPostById = async (req, res, next) => {
     const postId = req.params.Id;
     const post = await Post.findById(postId).populate({
       path: 'applications',
-      select: '-post',
     });
 
     if (!post) {

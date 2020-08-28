@@ -33,17 +33,17 @@ const applicationSchema = new Schema(
   { timestamps: true }
 );
 
-applicationSchema.pre(/^find/, function (next) {
-  this.populate({
-    path: 'post',
-    select: 'team position description technologies',
-  }).populate({
-    path: 'applicant',
-    select: 'name email year technologies',
-  });
+// applicationSchema.pre(/^find/, function (next) {
+//   this.populate({
+//     path: 'post',
+//     select: 'team position description technologies',
+//   }).populate({
+//     path: 'applicant',
+//     select: 'name email year technologies',
+//   });
 
-  next();
-});
+//   next();
+// });
 
 applicationSchema.statics.calcCount = async function (postId) {
   const countAgg = await this.aggregate([
@@ -60,11 +60,11 @@ applicationSchema.statics.calcCount = async function (postId) {
   // console.log(countAgg);
 
   if (countAgg.length > 0) {
-    await Post.findByIdAndUpdate(PostId, {
+    await Post.findByIdAndUpdate(postId, {
       noOfApplicants: countAgg[0].count,
     });
   } else {
-    await Post.findByIdAndUpdate(PostId, {
+    await Post.findByIdAndUpdate(postId, {
       noOfApplicants: 0,
     });
   }

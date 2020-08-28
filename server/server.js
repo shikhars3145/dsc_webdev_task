@@ -1,7 +1,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const morgan = require('morgan');
 const dotenv = require('dotenv');
-const applicantRouter = require('./routes/applicantRouter');
+const userRouter = require('./routes/userRouter');
+const applicationRouter = require('./routes/applicationRouter');
 const postRouter = require('./routes/postRouter');
 
 dotenv.config();
@@ -17,9 +19,11 @@ mongoose
   .catch((err) => console.log('error connecting db', err));
 
 const app = express();
+app.use(morgan('dev'));
 app.use(express.json());
-app.use('/api/applicants', applicantRouter);
+app.use('/api/users', userRouter);
 app.use('/api/posts', postRouter);
+app.use('/api/applications', applicationRouter);
 
 const port = process.env.PORT || 3000;
 

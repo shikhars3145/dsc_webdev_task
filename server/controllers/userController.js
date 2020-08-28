@@ -1,4 +1,4 @@
-const User = require('./../models/User');
+const User = require('../models/User');
 
 const addUser = async (req, res, next) => {
   try {
@@ -21,7 +21,11 @@ const addUser = async (req, res, next) => {
 
 const getAllUsers = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.find().populate({
+      path: 'applications',
+      select: 'post score status',
+    });
+
     res.status(200).json({
       status: 'success',
       results: users.length,
@@ -41,7 +45,10 @@ const getAllUsers = async (req, res, next) => {
 const getUserById = async (req, res, next) => {
   try {
     const userId = req.params.Id;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId).populate({
+      path: 'applications',
+      select: 'post score status',
+    });
 
     if (!user) {
       res.status(404).json({
