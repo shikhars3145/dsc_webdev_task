@@ -61,7 +61,9 @@ const login = async (req, res, next) => {
       });
     }
 
-    const user = await User.findOne({ email }).select('+password');
+    const user = await User.findOne({ email }).select('+password').populate({
+      path: 'applications',
+    });
 
     if (!user || !(await user.checkPassword(password, user.password))) {
       // console.log('not matched');

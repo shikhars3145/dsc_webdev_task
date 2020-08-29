@@ -76,7 +76,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function HomePage() {
+export default function HomePage({ history }) {
   const classes = useStyles();
   return (
     <Container fixed>
@@ -116,8 +116,17 @@ export default function HomePage() {
           <Grid item xs={12} md={6}>
             <img src={dev} className={classes.devImg} />
           </Grid>
-          <Grid item xs={12} md={6}>
-            <Button variant="outlined" className={classes.homebtn}>
+          <Grid
+            item
+            xs={12}
+            md={6}
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <Button
+              variant="outlined"
+              className={classes.homebtn}
+              onClick={() => history.push('/positions')}
+            >
               Check Out our Roles{' '}
             </Button>
           </Grid>

@@ -11,6 +11,7 @@ import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import CodeIcon from '@material-ui/icons/Code';
 import HomeIcon from '@material-ui/icons/Home';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import AddCircleOutlineIcon from '@material-ui/icons/AddCircleOutline';
 import clsx from 'clsx';
 import {
   Container,
@@ -86,6 +87,8 @@ function MenuAppBar({ history }) {
     setopenLogin(true);
   };
 
+  const handleSignupOpen = () => {};
+
   const handleLogout = async () => {
     try {
       const res = await axios.get('http://localhost:3000/api/users/logout', {
@@ -141,17 +144,17 @@ function MenuAppBar({ history }) {
               <Divider />
 
               <List className={classes.list}>
-                <ListItem button>
+                <ListItem button onClick={() => history.push('/')}>
                   <ListItemIcon>
                     <HomeIcon />
                   </ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItem>
-                <ListItem button>
+                <ListItem button onClick={() => history.push('/positions')}>
                   <ListItemIcon>
                     <CodeIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Roles" />
+                  <ListItemText primary="Positions" />
                 </ListItem>
 
                 {/* LOGGED IN / OUT*/}
@@ -177,12 +180,20 @@ function MenuAppBar({ history }) {
                     </ListItem>
                   </>
                 ) : (
-                  <ListItem button onClick={handleLoginOpen}>
-                    <ListItemIcon>
-                      <VpnKeyIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Login" />
-                  </ListItem>
+                  <>
+                    <ListItem button onClick={handleSignupOpen}>
+                      <ListItemIcon>
+                        <AddCircleOutlineIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Signup" />
+                    </ListItem>
+                    <ListItem button onClick={handleLoginOpen}>
+                      <ListItemIcon>
+                        <VpnKeyIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Login" />
+                    </ListItem>
+                  </>
                 )}
               </List>
             </Drawer>

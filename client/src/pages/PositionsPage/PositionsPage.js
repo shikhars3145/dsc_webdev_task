@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { makeStyles, fade } from '@material-ui/core/styles';
 import { Container, Grid, InputBase } from '@material-ui/core';
 import Card from '../../components/CustomCard/CustomCard';
 
 import SearchIcon from '@material-ui/icons/Search';
+import { UserContext } from '../../contexts';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
   page: {
@@ -44,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   },
   inputRoot: {
     color: 'inherit',
+    width: '100%',
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
@@ -52,13 +55,50 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '100%',
     },
   },
 }));
 
 export default function PositionsPage() {
   const classes = useStyles();
+
+  const [search, setsearch] = useState('');
+  const { user, setUser } = useContext(UserContext);
+  const [posts, setposts] = useState([]);
+
+  useEffect(() => {
+    async function load() {
+      const res = await axios.get('http://localhost:3000/api/posts/');
+      console.log(res);
+      const postsArr = res.data.data.posts;
+      if (!user) setposts(postsArr);
+      else {
+        console.log('user found');
+        const postsDisabled = postsArr.map((post) => {
+          if (
+            user.applications.some(
+              (application) => application.post === post._id
+            )
+          )
+            post.disabled = true;
+          return post;
+        });
+        setposts(postsDisabled);
+      }
+    }
+    load();
+  }, [user]);
+
+  const filteredPosts = posts.filter((post) => {
+    return (
+      post.position.toLowerCase().includes(search.toLowerCase()) ||
+      post.technologies.some((tech) =>
+        tech.toLowerCase().includes(search.toLowerCase())
+      ) ||
+      post.team.toLowerCase().includes(search.toLowerCase())
+    );
+  });
   return (
     <Container fixed>
       <Grid container className={classes.page} spacing={3}>
@@ -68,7 +108,10 @@ export default function PositionsPage() {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Search position, tech or team"
+              onChange={(e) => {
+                setsearch(e.target.value);
+              }}
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
@@ -77,46 +120,21 @@ export default function PositionsPage() {
             />
           </div>
         </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}>
-          <Card />
-        </Grid>
-        <Grid item xs={12} sm={6} md={4}></Grid>
+        {filteredPosts.map((post) => {
+          return (
+            <Grid key={post._id} item xs={12} sm={6} md={4}>
+              <Card
+                postId={post._id}
+                position={post.position}
+                team={post.team}
+                desc={post.description}
+                techs={post.technologies}
+                img={post.image}
+                disabled={post.disabled}
+              />
+            </Grid>
+          );
+        })}
       </Grid>
     </Container>
   );

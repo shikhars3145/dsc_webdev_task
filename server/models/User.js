@@ -41,15 +41,15 @@ const userSchema = new Schema(
     linkedin: {
       type: String,
     },
-    applications: [
-      {
-        type: mongoose.Schema.ObjectId,
-        ref: 'applications',
-      },
-    ],
   },
-  { timestamps: true }
+  { timestamps: true, toJSON: { virtuals: true }, toObject: { virtuals: true } }
 );
+
+userSchema.virtual('applications', {
+  ref: 'applications',
+  foreignField: 'applicant',
+  localField: '_id',
+});
 
 // userSchema.pre(/^find/, function (next) {
 //   this.populate({

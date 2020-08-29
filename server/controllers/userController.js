@@ -11,7 +11,6 @@ const getAllUsers = async (req, res, next) => {
   try {
     const users = await User.find().populate({
       path: 'applications',
-      select: 'post score status',
     });
 
     res.status(200).json({
@@ -35,7 +34,6 @@ const getUserById = async (req, res, next) => {
     const userId = req.params.Id;
     const user = await User.findById(userId).populate({
       path: 'applications',
-      select: 'post score status',
     });
 
     if (!user) {
